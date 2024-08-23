@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping</title>
+</head>
+<body>
+    <style>
+        *{
+            font-size:24px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, #3a87a6, #f9e08d, #9b54b0);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2.5px solid #0ccfcb;
+            animation: border-blow 3s infinite ease-in-out alternate;
+            background-image: linear-gradient(135deg, #0ccfcb, #f9e08d, #ff7e5f);
+        }
+        
+        @keyframes border-blow {
+            0% {
+                border-color: #0ccfcb;
+                box-shadow: 0 0 20px #0ccfcb;
+            }
+            50% {
+                border-color: #f9e08d;
+                box-shadow: 0 0 20px #f9e08d;
+            }
+            100% {
+                border-color: #ff7e5f;
+                box-shadow: 0 0 20px #ff7e5f;
+            }
+        }
+        
+        .container:hover {
+            background-color: #33b5a4;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button{
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4794ad;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor:pointer; 
+        }
+        a:hover {
+            background-color: #3cbd81;
+        }
+    </style>
+    <div class="container">
+        <h2><i><b>Web Scraping To CSV File</b></i></h2>
+        <form id="urlForm" onsubmit="return submitUrl()">
+            <label for="url">Enter URL to Scrape the data:</label><br>
+            <input type="text" id="url" name="url" placeholder="http://example.com"><br>
+            <button type="submit"><b>Submit</b></button>
+        </form>        
+    </div>
+    <script>
+        function submitUrl() {
+            console.log('Submitting URL form...');
+            var url = document.getElementById('url').value;
+            if (url.trim() === "") {
+                alert('Please enter a URL');
+                return false; 
+            }
+            console.log('URL:', url); 
+            fetch('/submit-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({url: url}),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.error); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response:', data);
+                alert('CSV file generated successfully!');
+                window.location.href = '/csv.html';
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                alert('Error: ' + error.message);
+            });
+            return false;
+        }  
+    </script>  
+</body>
+</html>

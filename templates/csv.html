@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV File</title>
+    <style>
+        *{
+            font-size:24px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 60px;
+            margin-top: 10px;
+            background-image: linear-gradient(135deg, #3a87a6, #f9e08d, #9b54b0);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: border-blow 3s infinite ease-in-out alternate;
+            background-image: linear-gradient(135deg, #0ccfcb, #f9e08d, #ff7e5f);
+        }
+
+        #downloadBtn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s; 
+        }
+
+        #downloadBtn:hover {
+            background-color: #45a049;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            }
+        }
+    </style>
+</head>
+    <body>
+        <div class="container">
+            <h2>Download CSV File</h2>
+            <p>Click the button below to download the CSV file:</p>
+            <a href="{{ url_for('download_csv', filename='books.csv') }}" id="downloadBtn">Download CSV</a>
+        </div>
+        <marquee behavior="scroll" direction="left" scrollamount="10">Disclaimer: This data is scraped from Example Website and is provided for informational purposes only. Accuracy of the data cannot be guaranteed and users should verify information independently.</marquee>
+    </body>
+</html>
