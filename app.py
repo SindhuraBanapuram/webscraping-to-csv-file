@@ -9,7 +9,7 @@ import os
 app = Flask(__name__, template_folder='templates')
 CORS(app)
 
-@app.route('https://webscraping-to-csv-file.onrender.com/')
+@app.route('/https://webscraping-to-csv-file.onrender.com')
 def index():
     return render_template('index.html')
 
